@@ -1,0 +1,42 @@
+
+config:
+- duration: 30
+- arrivalRate: 100
+- flow: 
+  - send: "Hello from Artillery"
+  - think: 30
+
+result (t3.nano):
+- run 1:
+  - connected clients: 1895
+  - process automatically killed
+- run 2:
+  - connected clients: 1734
+  - process automatically killed
+- run 3:
+  - connected clients: 1830
+  - process automatically killed
+
+
+
+config:
+- duration: 30
+- arrivalRate: 100
+- flow: 
+  - loop:
+    - send: "Hello from Artillery"
+    - think: 5
+    count: 10
+result (t3.nano):
+- run 1:
+  - connected clients: 1020
+  - process automatically killed
+  - peak websocket.send_rate: 207/sec
+- run 2:
+  - connected clients: 1100
+  - process automatically killed
+  - peak websocket.send_rate: 227/sec
+- run 3:
+  - connected clients: 1139
+  - process automatically killed
+  - peak websocket.send_rate: 224/sec

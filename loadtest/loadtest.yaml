@@ -1,0 +1,13 @@
+config:
+  target: "ws://54.169.111.122:8081"
+  phases:
+    - duration: 30
+      arrivalRate: 100
+
+scenarios:
+  - engine: ws
+    flow:
+      - loop:
+        - send: "Hello from Artillery"
+        - think: 5
+        count: 10
