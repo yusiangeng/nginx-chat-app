@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.org/lb-method: "round_robin"
+  labels:
+    name: myingress
+spec:
+  rules:
+  - host: a211624ff9fd44ce0bc64c0ce551bbd4-8fb30315e963f6fa.elb.ap-southeast-1.amazonaws.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: chat-app-cluster-ip-service
+            port: 
+              number: 8081
