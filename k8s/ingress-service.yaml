@@ -9,7 +9,7 @@ metadata:
     name: myingress
 spec:
   rules:
-  - host: a211624ff9fd44ce0bc64c0ce551bbd4-8fb30315e963f6fa.elb.ap-southeast-1.amazonaws.com
+  - host: a4d3d062170364ea8ae7f0cc93c9c9d1-198739f379086363.elb.ap-southeast-1.amazonaws.com
     http:
       paths:
       - pathType: Prefix

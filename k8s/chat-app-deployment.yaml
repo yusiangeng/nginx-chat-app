@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: chat-app
 spec:
-  replicas: 4
+  replicas: 20
   selector:
     matchLabels:
       component: chat-app 
@@ -14,9 +14,13 @@ spec:
     spec:
       containers:
       - name: chat-app
-        image: yusiangeng/chat-app-for-nginx:v1
+        image: yusiangeng/chat-app-for-nginx:v4
         ports:
         - containerPort: 8081
         env:
         - name: REDIS_HOST
           value: "redis-cluster-ip-service"
+        resources:
+          limits:
+            memory: "3Gi"
+            cpu: "1.5"

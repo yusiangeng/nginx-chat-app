@@ -20,7 +20,7 @@ const publisher = createClient({
 const CHANNEL = "livechat";
 
 subscriber.subscribe(CHANNEL, (message) => {
-  console.log(`app ${PORT} received message from redis: ${message}`);
+  // console.log(`app ${PORT} received message from redis: ${message}`);
   wss.clients.forEach((client) => {
     if (client.readyState === WebSocket.OPEN) {
       client.send(message);
@@ -33,7 +33,7 @@ wss.on("connection", (ws) => {
   ws.send(`connected to app ${PORT}`);
 
   ws.on("message", (data) => {
-    console.log(`app ${PORT} received message from client: ${data}`);
+    // console.log(`app ${PORT} received message from client: ${data}`);
     publisher.publish(CHANNEL, data.toString());
   });
 });
