@@ -40,7 +40,11 @@ subscriber.subscribe(CHANNEL, (message) => {
 wss.on("connection", (ws, req) => {
   const roomId = req.url?.slice(1);
   if (!roomId || roomId.length == 0) {
-    ws.send("Room ID required");
+    ws.send(
+      JSON.stringify({
+        error: "Room ID required",
+      })
+    );
     ws.close();
     return;
   }
@@ -52,7 +56,7 @@ wss.on("connection", (ws, req) => {
   console.log(
     `CONNECTION OPENED: Client connected to room ${roomId}. Clients: ${wss.clients.size}/${roomSockets.size}`
   );
-  ws.send(`connected to ${hostname()}`);
+  ws.send(JSON.stringify({ connection: hostname(), roomId }));
 
   ws.on("message", (data) => {
     const message = JSON.parse(data.toString()) as ClientMessage;
