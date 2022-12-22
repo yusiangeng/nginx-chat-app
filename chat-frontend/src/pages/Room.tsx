@@ -1,20 +1,14 @@
-import {
-  Box,
-  Button,
-  Heading,
-  HStack,
-  Input,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Button, Heading, HStack, Input, Text } from "@chakra-ui/react";
 import { useState } from "react";
+import { sendMessage } from "../utils/socket";
 import { ServerMessage } from "../utils/types";
 
 function Room(props: {
   messages: ServerMessage[];
   currentlyJoinedRoom: string;
+  displayName: string;
 }) {
-  const { messages, currentlyJoinedRoom } = props;
+  const { messages, currentlyJoinedRoom, displayName } = props;
   const [typedMessage, setTypedMessage] = useState("");
 
   return (
@@ -38,11 +32,15 @@ function Room(props: {
         ))}
       </Box>
       <Input
+        placeholder={`Your Display Name: ${displayName}`}
         value={typedMessage}
         onChange={(e) => setTypedMessage(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            console.log(typedMessage);
+            sendMessage({
+              fromName: displayName,
+              content: typedMessage,
+            });
             setTypedMessage("");
           }
         }}
@@ -56,7 +54,7 @@ export default Room;
 function MessageView(props: { message: ServerMessage; showName: boolean }) {
   const { message, showName } = props;
   return (
-    <Box alignItems="flex-start">
+    <Box alignItems="flex-start" my="2">
       {showName && (
         <Heading size="sm" mt="2">
           {message.fromName}

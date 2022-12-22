@@ -28,8 +28,12 @@ export function setSocket(
 }
 
 export function closeSocket() {
-  if (!!ws) {
-    ws.close();
-    ws = null;
-  }
+  if (!ws) return;
+  ws.close();
+  ws = null;
+}
+
+export function sendMessage(message: ServerMessage) {
+  if (!ws) return;
+  ws.send(JSON.stringify(message));
 }

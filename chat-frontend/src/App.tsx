@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Container,
   HStack,
@@ -16,6 +15,7 @@ function App() {
   const { colorMode, toggleColorMode } = useColorMode();
   const [currentlyJoinedRoom, setCurrentlyJoinedRoom] = useState("");
   const [messages, setMessages] = useState<ServerMessage[]>([]);
+  const [displayName, setDisplayName] = useState("");
 
   function joinRoom(roomId: string) {
     setSocket(roomId, setCurrentlyJoinedRoom, setMessages);
@@ -25,7 +25,7 @@ function App() {
     <Container minW="md" maxW="2xl">
       <VStack minH="100vh" maxH="100vh" py="4">
         <HStack minW="100%" justifyContent="space-between" mb="1">
-          <Button onClick={toggleColorMode} w="180px">
+          <Button onClick={toggleColorMode}>
             Use {colorMode === "light" ? "Dark" : "Light"} Mode
           </Button>
           {currentlyJoinedRoom && (
@@ -33,8 +33,8 @@ function App() {
               onClick={() => {
                 closeSocket();
                 setCurrentlyJoinedRoom("");
+                setMessages([]);
               }}
-              w="120px"
               colorScheme="red"
             >
               Leave Room
@@ -44,11 +44,16 @@ function App() {
 
         <VStack w="100%" border="1px" borderRadius="md" p="4" flexGrow="1">
           {!currentlyJoinedRoom ? (
-            <JoinRoom joinRoom={joinRoom} />
+            <JoinRoom
+              joinRoom={joinRoom}
+              displayName={displayName}
+              setDisplayName={setDisplayName}
+            />
           ) : (
             <Room
               currentlyJoinedRoom={currentlyJoinedRoom}
               messages={messages}
+              displayName={displayName}
             />
           )}
         </VStack>
