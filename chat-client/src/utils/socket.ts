@@ -7,7 +7,9 @@ export function setSocket(
   setCurrentlyJoinedRoom: React.Dispatch<React.SetStateAction<string>>,
   setMessages: React.Dispatch<React.SetStateAction<ServerMessage[]>>
 ) {
-  ws = new WebSocket(`ws://localhost:8081/${roomId}`);
+  ws = new WebSocket(
+    `ws://${import.meta.env.BACKEND_URL || "localhost:8081"}/${roomId}`
+  );
   ws.onerror = (e) => {
     alert("Socket error");
     closeSocket();

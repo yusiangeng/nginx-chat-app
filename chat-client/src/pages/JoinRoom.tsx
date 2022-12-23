@@ -20,6 +20,7 @@ function JoinRoom(props: {
 
   return (
     <>
+      <FormLabel textAlign="center">Set Display Name</FormLabel>
       <Input
         placeholder="Display Name"
         value={displayName}
@@ -34,7 +35,10 @@ function JoinRoom(props: {
           value={typedRoomId}
           onChange={(e) => setTypedRoomId(e.target.value)}
         />
-        <Tooltip label="Please enter a Display Name" isDisabled={!!displayName}>
+        <Tooltip
+          label="Please set your Display Name"
+          isDisabled={!!displayName}
+        >
           <Button
             colorScheme="blue"
             onClick={() => {
@@ -47,7 +51,7 @@ function JoinRoom(props: {
         </Tooltip>
       </HStack>
       <FormLabel>Or</FormLabel>
-      <Tooltip label="Please enter a Display Name" isDisabled={!!displayName}>
+      <Tooltip label="Please set your Display Name" isDisabled={!!displayName}>
         <Button
           onClick={() => {
             joinRoom(uuid().slice(0, 8));
