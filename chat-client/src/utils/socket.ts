@@ -9,7 +9,7 @@ export function setSocket(
   leaveRoom: () => void
 ) {
   ws = new WebSocket(
-    `ws://${import.meta.env.BACKEND_URL || "localhost"}/${roomId}`
+    `ws://${import.meta.env.VITE_BACKEND_URL || "localhost"}/${roomId}`
   );
   ws.onerror = (e) => {
     alert("Socket error");
