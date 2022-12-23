@@ -7,8 +7,9 @@ function Room(props: {
   messages: ServerMessage[];
   currentlyJoinedRoom: string;
   displayName: string;
+  leaveRoom: () => void;
 }) {
-  const { messages, currentlyJoinedRoom, displayName } = props;
+  const { messages, currentlyJoinedRoom, displayName, leaveRoom } = props;
   const [typedMessage, setTypedMessage] = useState("");
 
   return (
@@ -37,10 +38,13 @@ function Room(props: {
         onChange={(e) => setTypedMessage(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            sendMessage({
-              fromName: displayName,
-              content: typedMessage,
-            });
+            sendMessage(
+              {
+                fromName: displayName,
+                content: typedMessage,
+              },
+              leaveRoom
+            );
             setTypedMessage("");
           }
         }}

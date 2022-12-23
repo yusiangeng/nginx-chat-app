@@ -5,21 +5,21 @@ let ws: WebSocket | null = null;
 export function setSocket(
   roomId: string,
   setCurrentlyJoinedRoom: React.Dispatch<React.SetStateAction<string>>,
-  setMessages: React.Dispatch<React.SetStateAction<ServerMessage[]>>
+  setMessages: React.Dispatch<React.SetStateAction<ServerMessage[]>>,
+  leaveRoom: () => void
 ) {
   ws = new WebSocket(
-    `ws://${import.meta.env.BACKEND_URL || "localhost:8081"}/${roomId}`
+    `ws://${import.meta.env.BACKEND_URL || "localhost"}/${roomId}`
   );
   ws.onerror = (e) => {
     alert("Socket error");
-    closeSocket();
+    leaveRoom();
   };
   ws.onmessage = (e) => {
     const newMessage = JSON.parse(e.data);
     if (newMessage.error) {
       alert(`Error: ${newMessage.error}`);
-      setCurrentlyJoinedRoom("");
-      closeSocket();
+      leaveRoom();
     } else if (newMessage.connection) {
       console.log(`connected to server ${newMessage.connection}`);
       setCurrentlyJoinedRoom(newMessage.roomId);
@@ -35,7 +35,12 @@ export function closeSocket() {
   ws = null;
 }
 
-export function sendMessage(message: ServerMessage) {
+export function sendMessage(message: ServerMessage, leaveRoom: () => void) {
   if (!ws) return;
+  if (ws.readyState === ws.CLOSED || ws.readyState === ws.CLOSING) {
+    alert("Connection lost");
+    leaveRoom();
+    return;
+  }
   ws.send(JSON.stringify(message));
 }

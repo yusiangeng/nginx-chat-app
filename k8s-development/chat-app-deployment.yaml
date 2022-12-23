@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chat-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: chat-app 
+  template:
+    metadata:
+      labels:
+        component: chat-app 
+    spec:
+      containers:
+      - name: chat-app
+        image: yusiangeng/chat-app-for-nginx:v5
+        ports:
+        - containerPort: 8081
+        env:
+        - name: REDIS_HOST
+          value: "redis-cluster-ip-service"
+        resources:
+          limits:
+            memory: "1G"
+            cpu: "1.0"

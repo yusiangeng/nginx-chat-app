@@ -17,8 +17,14 @@ function App() {
   const [messages, setMessages] = useState<ServerMessage[]>([]);
   const [displayName, setDisplayName] = useState("");
 
+  function leaveRoom() {
+    closeSocket();
+    setCurrentlyJoinedRoom("");
+    setMessages([]);
+  }
+  
   function joinRoom(roomId: string) {
-    setSocket(roomId, setCurrentlyJoinedRoom, setMessages);
+    setSocket(roomId, setCurrentlyJoinedRoom, setMessages, leaveRoom);
   }
 
   return (
@@ -29,14 +35,7 @@ function App() {
             Use {colorMode === "light" ? "Dark" : "Light"} Mode
           </Button>
           {currentlyJoinedRoom && (
-            <Button
-              onClick={() => {
-                closeSocket();
-                setCurrentlyJoinedRoom("");
-                setMessages([]);
-              }}
-              colorScheme="red"
-            >
+            <Button onClick={leaveRoom} colorScheme="red">
               Leave Room
             </Button>
           )}
@@ -54,6 +53,7 @@ function App() {
               currentlyJoinedRoom={currentlyJoinedRoom}
               messages={messages}
               displayName={displayName}
+              leaveRoom={leaveRoom}
             />
           )}
         </VStack>
