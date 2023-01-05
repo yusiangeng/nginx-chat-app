@@ -1,6 +1,6 @@
 ## Horizontally scalable live chat application using Node.js, WebSockets, Nginx, Redis, and Kubernetes
 
-[https://nginx-chat-app.vercel.app/](https://nginx-chat-app.vercel.app/) (Deployed version no longer using Kubernetes, running on one instance only)
+Deployed at [nginx-chat-app.vercel.app/](https://nginx-chat-app.vercel.app/) (Deployed version no longer using Kubernetes, running on one instance only)
 
 
 ## System Diagram
