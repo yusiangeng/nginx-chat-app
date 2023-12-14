@@ -5,6 +5,8 @@
 
 ![System Diagram](https://user-images.githubusercontent.com/96862218/209307263-e739e9eb-5034-4c13-a5f5-8802824eeef5.svg)
 
+Redis pub/sub is used so that clients that are in the same chat room but connected to different servers can still send and receive each others' messages.
+
 
 ## UI Screenshot
 
