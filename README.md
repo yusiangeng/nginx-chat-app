@@ -15,4 +15,4 @@ Redis pub/sub is used so that clients that are in the same chat room but connect
 
 ## Try it out
 
-Sadly no longer available beceause AWS EKS is too expensive :(
+Sadly no longer available because AWS EKS is too expensive :(
